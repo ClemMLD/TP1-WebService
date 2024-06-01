@@ -17,7 +17,7 @@ trait StripeTrait
         $this->stripe = new StripeClient(env('STRIPE_KEY'));
         header('Content-Type: application/json');
 
-        $YOUR_DOMAIN = 'https://1fa0-2a01-e0a-afe-f430-f4f2-1f4f-d51c-ec71.ngrok-free.app';
+        $YOUR_DOMAIN = env('APP_URL');
 
         return $this->stripe->checkout->sessions->create([
             'submit_type' => 'pay',

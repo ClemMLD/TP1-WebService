@@ -53,7 +53,8 @@ class DashboardController extends Controller
                         'car' => $details['car'] ?? 'N/A',
                         'city' =>$details['city'] ?? 'N/A',
                         'email' => $details['email'] ?? 'N/A',
-                        'amount' => $session->amount / 100,
+                        'amount' => $paymentIntent->amount / 100,
+                        'captureValPartial' => $paymentIntent->amount * 0.75,
                         'lastCardNumbers' => $paymentMethod->card->last4 ?? 'N/A',
                         'transactionId' => $session->id,
                         'age' => $details['age'] ?? 'N/A',
@@ -106,7 +107,7 @@ class DashboardController extends Controller
         try {
             $session = Session::retrieve($sessionId);
             $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
-            $amountToCapture = (int)$request->input('amount');
+            $amountToCapture = (int)$request->input('capturePartial');
             $paymentIntent->capture(['amount_to_capture' => $amountToCapture]);
             return redirect('/dashboard')->with('success', 'Partial payment captured successfully.');
         } catch (ApiErrorException $e) {
