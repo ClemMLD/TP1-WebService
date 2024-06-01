@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::post('/form', [JwtController::class, 'generateStripeCheckout']);
 Route::get('/payment_success', [JwtController::class, 'paymentSuccess']);

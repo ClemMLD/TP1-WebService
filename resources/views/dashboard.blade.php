@@ -108,6 +108,7 @@
                     <p><span class="bold-element">Montant du dépôt de garantie</span> : {{ $payment['amount'] }}</p>
                     <p><span class="bold-element">Versement avec une carte bancaire se terminant par</span> : - {{ $payment['lastCardNumbers'] }}</p>
                     <p><span class="bold-element">Numéro de transaction</span> : {{ $payment['transactionId'] }}</p>
+                    @if($payment['status'] === "requires_capture")
                     <div class="btn-group">
                         <form method="post" action="/dashboard/{{ $payment["id"]}}/refund">
                             @csrf
@@ -115,13 +116,14 @@
                         </form>
                         <form method="post" action="/dashboard/{{ $payment["id"]}}/capture_partials">
                             @csrf
-                            <button name="capturePartial" value="{{ $payment['amount'] }}" type="submit" class="btn">Capture une partie du paiement</button>
+                            <button name="capturePartial" value="{{ $payment['captureValPartial'] }}" type="submit" class="btn">Capture une partie du paiement</button>
                         </form>
                         <form method="post" action="/dashboard/{{ $payment["id"] }}/capture_full">
                             @csrf
                             <button name="captureFull" type="submit" class="btn">Capturer l'intégralité du paiement</button>
                         </form>
                     </div>
+                    @endif
                 </div>
             @endforeach
         </div>

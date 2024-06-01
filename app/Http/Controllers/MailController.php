@@ -9,20 +9,21 @@ use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 
-class MailController extends Controller {
+class MailController extends Controller
+{
 
     use StripeTrait;
 
-    public function sendMail(Request $request,$sessionId): void
+    public function sendMail(Request $request, $sessionId): \Illuminate\Http\RedirectResponse
     {
-        $customerDetails =  $this->getPaymentCustomerInfo($sessionId);
+        $customerDetails = $this->getPaymentCustomerInfo($sessionId);
 
         $data = [
             "lastname" => data_get($customerDetails, 'lastname'),
             "firstname" => data_get($customerDetails, 'firstname'),
             "age" => data_get($customerDetails, 'age'),
-            "city" => data_get($customerDetails,'city'),
-            "email"=>data_get($customerDetails,'email'),
+            "city" => data_get($customerDetails, 'city'),
+            "email" => data_get($customerDetails, 'email'),
             "car" => data_get($customerDetails, 'car'),
             "amount" => data_get($customerDetails, 'amount'),
             "lastCardNumbers" => data_get($customerDetails, 'lastCardNumbers'),
@@ -31,6 +32,7 @@ class MailController extends Controller {
 
         $config = Configuration::getDefaultConfiguration()->setApiKey("api-key", env('BREVO_API_KEY'));
         $api_instance = new TransactionalEmailsApi(null, $config);
+
         $emailCampaigns = new SendSmtpEmail([
             'name' => 'Campaign sent via the API',
             'subject' => 'My subject',
@@ -38,7 +40,7 @@ class MailController extends Controller {
                 'name' => 'Clément Maldonado',
                 'email' => 'valerian.charrier@gmail.com'
             ],
-            'htmlContent' => view('email_content', ['data'=>$data])->render(),
+            'htmlContent' => view('email_content', ['data' => $data])->render(),
             'to' => [
                 [
                     'email' => $data['email'],
@@ -47,10 +49,10 @@ class MailController extends Controller {
             ],
         ]);
         try {
-            $result = $api_instance->sendTransacEmail($emailCampaigns);
-            dd($result);
+            $api_instance->sendTransacEmail($emailCampaigns);
+            return redirect()->route('home')->with('success', 'Email sent successfully');
         } catch (ApiException $e) {
-            echo 'Exception when calling EmailCampaignsApi->createEmailCampaign: ', $e->getMessage(), PHP_EOL;
+            return redirect()->route('home')->with('error', 'An error occurred while sending the email');
         }
     }
 }

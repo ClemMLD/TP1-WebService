@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Formulaire de Location de Véhicule</title>
 
-    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="preconnect" href="https://fonts.bunny.net"/>
     <link
-            href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap"
-            rel="stylesheet"
+        href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap"
+        rel="stylesheet"
     />
 
     <style>
@@ -88,49 +88,50 @@
     </style>
 </head>
 <body>
-    <form action="/form" class="form" method="POST">
-        @CSRF
-        <h2>Formulaire de Location</h2>
-        <div class="input-group">
-            <label for="lastname">Nom</label>
-            <input id="lastname" type="text" name="lastname" />
-        </div>
+<h1>Location de Véhicule</h1>
+<form action="/form" class="form" method="POST">
+    @CSRF
+    <h2>Formulaire de Location</h2>
+    <div class="input-group">
+        <label for="lastname">Nom</label>
+        <input id="lastname" type="text" name="lastname"/>
+    </div>
 
-        <div class="input-group">
-            <label for="firstname">Prénom</label>
-            <input id="firstname" type="text" name="firstname" />
-        </div>
+    <div class="input-group">
+        <label for="firstname">Prénom</label>
+        <input id="firstname" type="text" name="firstname"/>
+    </div>
 
-        <div class="input-group">
-            <label for="age">Âge</label>
-            <input id="age" type="number" name="age" />
-        </div>
+    <div class="input-group">
+        <label for="age">Âge</label>
+        <input id="age" type="number" name="age"/>
+    </div>
 
-        <div class="input-group">
-            <label for="city">Ville</label>
-            <select id="city" name="city">
-                <option value="paris">Paris</option>
-                <option value="lille">Lille</option>
-                <option value="toulouse">Toulouse</option>
-                <option value="lyon">Lyon</option>
-                <option value="bordeaux">Bordeaux</option>
-            </select>
-        </div>
+    <div class="input-group">
+        <label for="city">Ville</label>
+        <select id="city" name="city">
+            <option value="paris">Paris</option>
+            <option value="lille">Lille</option>
+            <option value="toulouse">Toulouse</option>
+            <option value="lyon">Lyon</option>
+            <option value="bordeaux">Bordeaux</option>
+        </select>
+    </div>
 
-        <div class="input-group">
-            <label for="vehicle">Véhicule à louer</label>
-            <select id="vehicle" name="vehicle">
-                <option value="bmw">BMW</option>
-                <option value="audi">Audi</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="renault">Renault</option>
-                <option value="peugeot">Peugeot</option>
-            </select>
-        </div>
-        <button class="btn" type="submit">Envoyer</button>
-    </form>
-    <form class="form" action="/dashboard" method="get">
-        <button class="btn btn-dashboard" type="submit"> Voir le dashboard</button>
-    </form>
+    <div class="input-group">
+        <label for="vehicle">Véhicule à louer</label>
+        <select id="vehicle" name="vehicle">
+            <option value="bmw">BMW</option>
+            <option value="audi">Audi</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="renault">Renault</option>
+            <option value="peugeot">Peugeot</option>
+        </select>
+    </div>
+    <button class="btn" type="submit">Envoyer</button>
+</form>
+<form class="form" action="/dashboard" method="get">
+    <button class="btn btn-dashboard" type="submit"> Voir le dashboard</button>
+</form>
 </body>
 </html>
