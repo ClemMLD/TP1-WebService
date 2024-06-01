@@ -31,6 +31,7 @@ Cette installation n'utilise pas de base de données.
 4. Exécuter la commande `cp .env.example .env` pour créer le fichier `.env`.
 5. Implémenter les variables d'environnement dans le fichier `.env`.
    > Penser à modifier les variables d'environnement suivantes :
+   >   - `APP_URL` (si différent de http://localhost)
    >   - `DB_HOST`
    >   - `DB_PORT`
    >   - `DB_DATABASE`
