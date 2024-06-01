@@ -14,6 +14,7 @@ Cette installation n'utilise pas de base de données.
 ## Prérequis
 
 - PHP 8.2 ou supérieur
+- MySql 8.0 ou supérieur
 - Composer
 - API Key Brevo (pour les envois de courriels)
 - Clé secrète et clé publique Stripe (pour les paiements)
@@ -30,15 +31,21 @@ Cette installation n'utilise pas de base de données.
 4. Exécuter la commande `cp .env.example .env` pour créer le fichier `.env`.
 5. Implémenter les variables d'environnement dans le fichier `.env`.
    > Penser à modifier les variables d'environnement suivantes :
+   >   - `DB_HOST`
+   >   - `DB_PORT`
+   >   - `DB_DATABASE`
+   >   - `DB_USERNAME`
+   >   - `DB_PASSWORD`
    >   - `JWT_SECRET_KEY`
    >   - `JWT_TOKEN`
    >   - `STRIPE_KEY`
    >   - `STRIPE_PUBLIC_KEY`
    >   - `BREVO_API_KEY`
 6. Exécuter la commande `php artisan key:generate` pour générer une clé d'application.
-7. Exécuter la commande `php artisan serve` pour démarrer le serveur.
-8. Ouvrir un navigateur et accéder à l'adresse `http://0.0.0.0`
-9. Vous pouvez maintenant utiliser l'application.
+7. Exécuter la commande `php artisan migrate` pour créer les tables de la base de données.
+8. Exécuter la commande `php artisan serve` pour démarrer le serveur.
+9. Ouvrir un navigateur et accéder à l'adresse `http://0.0.0.0`
+10. Vous pouvez maintenant utiliser l'application.
 
 ### Installation avec Docker
 
@@ -47,12 +54,14 @@ Cette installation n'utilise pas de base de données.
 3. Exécuter la commande `composer install` pour installer les dépendances.
 4. Exécuter la commande `cp .env.example .env` pour créer le fichier `.env`.
 5. Implémenter les variables d'environnement dans le fichier `.env`.
-   > Penser à modifier les variables d'environnement suivantes :
+   > Penser à modifier les variables d'environnement suivant :
    >   - `JWT_SECRET_KEY`
    >   - `JWT_TOKEN`
    >   - `STRIPE_KEY`
    >   - `STRIPE_PUBLIC_KEY`
    >   - `BREVO_API_KEY`
 6. Exécuter la commande `php artisan key:generate` pour générer une clé d'application.
-7. Exécuter la commande `.vendor/bin/sail up` pour démarrer le serveur ou `./vendor/bin/sail up -d` pour démarrer le
+7. Exécuter la commande `php artisant sail:install` pour installer Sail et initialiser les conteneurs Docker.
+8. Exécuter la commande `./vendor/bin/sail artisan migrate` pour créer les tables de la base de données.
+9. Exécuter la commande `.vendor/bin/sail up` pour démarrer le serveur ou `./vendor/bin/sail up -d` pour démarrer le
    serveur en arrière-plan.
